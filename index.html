@@ -1,0 +1,726 @@
+<title>Muhammad Ibrahim Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dark glass "control room" — hero split between thesis and a live GHL pipeline board; sections stack in a 1180px column. */
+:root{
+  --bg:#0b0f19;
+  --bg-2:#0f1524;
+  --glass:rgba(148,178,255,.06);
+  --glass-strong:rgba(148,178,255,.10);
+  --line:rgba(148,178,255,.14);
+  --fg:#e7ecf6;
+  --muted:#93a0b8;
+  --dim:#64708a;
+  --cyan:#22d3ee;
+  --green:#34f5a4;
+  --blue:#5b8cff;
+  --on-accent:#05121a;
+  --display:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:18px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+::selection{background:var(--cyan);color:var(--on-accent)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+
+/* ambient gradient */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aurora span{position:absolute;border-radius:50%;filter:blur(90px);opacity:.38;animation:drift 22s ease-in-out infinite alternate}
+.aurora .a1{width:560px;height:560px;background:var(--cyan);top:-180px;left:-120px;opacity:.22}
+.aurora .a2{width:520px;height:520px;background:var(--blue);top:10%;right:-160px;animation-delay:-6s;opacity:.25}
+.aurora .a3{width:420px;height:420px;background:var(--green);bottom:-160px;left:30%;animation-delay:-12s;opacity:.12}
+@keyframes drift{to{transform:translate(60px,40px) scale(1.12)}}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 70%);opacity:.35}
+
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{position:relative;z-index:1;padding-block:clamp(64px,9vw,112px)}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(11,15,25,.72);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;letter-spacing:-.01em;text-decoration:none}
+.brand-mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--blue));color:var(--on-accent);font-size:14px;font-weight:800}
+.nav-links{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--fg)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:15px;padding:14px 22px;border-radius:12px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .25s,background .25s,border-color .25s;white-space:nowrap}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--green));color:var(--on-accent);box-shadow:0 0 0 0 rgba(34,211,238,.0),0 10px 30px -10px rgba(34,211,238,.55)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 0 4px rgba(34,211,238,.15),0 16px 40px -12px rgba(52,245,164,.6)}
+.btn-ghost{background:var(--glass);border-color:var(--line);color:var(--fg)}
+.btn-ghost:hover{border-color:rgba(34,211,238,.5);background:var(--glass-strong);transform:translateY(-2px)}
+.btn-sm{padding:10px 16px;font-size:14px}
+.btn svg{width:18px;height:18px}
+
+/* type */
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--cyan)}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.025em;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.3rem,5.4vw,4.1rem);line-height:1.05;font-weight:800}
+h2{font-size:clamp(1.9rem,3.6vw,2.8rem);line-height:1.1;font-weight:800}
+h3{font-size:1.25rem;line-height:1.3;font-weight:700}
+.grad{background:linear-gradient(100deg,var(--cyan) 10%,var(--green) 55%,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:clamp(1.02rem,1.4vw,1.15rem);max-width:58ch}
+.sec-head{display:grid;gap:16px;margin-bottom:48px;max-width:720px}
+.sec-head p{color:var(--muted);margin:0;max-width:62ch}
+
+/* glass */
+.glass{background:linear-gradient(180deg,var(--glass-strong),var(--glass));border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+
+/* hero */
+.hero{padding-block:clamp(48px,7vw,96px) clamp(56px,8vw,96px)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero-copy{display:grid;gap:24px;min-width:0}
+.status{display:inline-flex;align-items:center;gap:10px;width:fit-content;padding:7px 14px 7px 10px;border-radius:999px;background:var(--glass);border:1px solid var(--line);font-size:13px;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(52,245,164,.6);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgba(52,245,164,0)}100%{box-shadow:0 0 0 0 rgba(52,245,164,0)}}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.pill{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--glass);color:var(--fg);transition:border-color .25s,box-shadow .25s,color .25s}
+.pill:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 18px -4px rgba(34,211,238,.6)}
+.pill.hot{border-color:rgba(52,245,164,.45);color:var(--green)}
+
+/* pipeline board */
+.board{padding:20px;display:grid;gap:14px;min-width:0;box-shadow:0 40px 80px -40px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.04)}
+.board-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.board-title{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.board-title b{color:var(--fg);font-weight:500}
+.win-dots{display:flex;gap:6px}
+.win-dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.stage{display:grid;grid-template-columns:110px 1fr 44px;align-items:center;gap:12px;font-size:13px}
+.stage-name{color:var(--muted);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:10px;border-radius:99px;background:rgba(148,178,255,.08);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--cyan));width:var(--w);animation:grow 1.4s cubic-bezier(.2,.8,.2,1) both}
+.stage:last-of-type .bar i{background:linear-gradient(90deg,var(--cyan),var(--green))}
+@keyframes grow{from{width:12%}}
+.stage-n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;color:var(--fg)}
+.board-log{border-top:1px dashed var(--line);padding-top:14px;display:grid;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.log-row{display:flex;gap:10px;align-items:baseline;min-width:0}
+.log-row span:first-child{color:var(--dim);flex:none;font-variant-numeric:tabular-nums}
+.log-row em{font-style:normal;color:var(--green)}
+.log-row .c{color:var(--cyan)}
+
+/* stats strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:56px}
+.stat{background:var(--bg-2);padding:22px 24px;display:grid;gap:4px}
+.stat b{font-family:var(--display);font-size:1.7rem;font-weight:800;letter-spacing:-.02em}
+.stat span{color:var(--muted);font-size:13.5px}
+
+/* skills */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.skill-card{padding:28px;display:grid;gap:20px;align-content:start;transition:border-color .3s,transform .3s}
+.skill-card:hover{border-color:rgba(34,211,238,.35);transform:translateY(-3px)}
+.skill-head{display:flex;align-items:center;gap:14px}
+.ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:none;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);color:var(--cyan)}
+.ico.g{background:rgba(52,245,164,.08);border-color:rgba(52,245,164,.3);color:var(--green)}
+.ico svg{width:22px;height:22px}
+.skill-head small{display:block;color:var(--muted);font-size:13px}
+.skill-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.skill-list li{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;background:rgba(148,178,255,.04);border:1px solid rgba(148,178,255,.08);font-size:14.5px;transition:background .2s,border-color .2s}
+.skill-list li:hover{background:rgba(34,211,238,.07);border-color:rgba(34,211,238,.3)}
+.skill-list li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);flex:none;box-shadow:0 0 10px var(--cyan)}
+.skill-card.fe .skill-list li::before{background:var(--green);box-shadow:0 0 10px var(--green)}
+.code{font-family:var(--mono);font-size:12.5px;line-height:1.7;background:rgba(5,8,15,.6);border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow-x:auto;color:var(--muted);white-space:pre}
+.code .k{color:var(--blue)}.code .s{color:var(--green)}.code .p{color:var(--cyan)}.code .cm{color:var(--dim)}
+
+/* projects */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.proj{position:relative;display:flex;flex-direction:column;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .35s}
+.proj::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(34,211,238,.14),transparent 45%);opacity:0;transition:opacity .3s}
+.proj:hover{transform:translateY(-6px);border-color:rgba(34,211,238,.4);box-shadow:0 30px 60px -30px rgba(34,211,238,.35)}
+.proj:hover::after{opacity:1}
+.proj-visual{aspect-ratio:16/10;max-width:100%;border-bottom:1px solid var(--line);position:relative;overflow:hidden;background:var(--bg-2)}
+.proj-body{padding:24px;display:flex;flex-direction:column;gap:14px;flex:1}
+.proj-kind{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan)}
+.proj p{color:var(--muted);margin:0;font-size:14.5px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tag{font-family:var(--mono);font-size:11.5px;padding:5px 9px;border-radius:8px;background:rgba(91,140,255,.1);color:#b7caff;border:1px solid rgba(91,140,255,.2)}
+.proj-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--line);padding:16px 24px}
+.proj-foot a{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;text-decoration:none;color:var(--fg)}
+.proj-foot a:hover{color:var(--cyan)}
+.proj-foot a svg{width:16px;height:16px;transition:transform .25s}
+.proj-foot a:hover svg{transform:translate(3px,-3px)}
+.proj-foot .note{font-size:12.5px;color:var(--dim)}
+
+/* mini mockups */
+.mock{position:absolute;inset:16px;border-radius:10px;border:1px solid var(--line);background:var(--bg);display:flex;flex-direction:column;overflow:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.proj:hover .mock{transform:scale(1.03)}
+.mock-bar{display:flex;gap:5px;padding:8px 10px;border-bottom:1px solid var(--line);align-items:center}
+.mock-bar i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.mock-bar u{margin-left:8px;flex:1;height:8px;border-radius:4px;background:rgba(148,178,255,.08);text-decoration:none}
+.mock-body{flex:1;padding:12px;display:grid;gap:8px;align-content:start}
+.ln{height:7px;border-radius:4px;background:rgba(148,178,255,.12)}
+.ln.h{height:12px;width:70%;background:rgba(231,236,246,.5)}
+.ln.acc{background:linear-gradient(90deg,var(--cyan),var(--green));width:34%;height:16px;border-radius:6px}
+.steps7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:4px}
+.steps7 b{height:26px;border-radius:5px;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.25);font:600 10px var(--mono);color:var(--cyan);display:grid;place-items:center}
+.pages6{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pages6 b{aspect-ratio:4/3;border-radius:6px;background:linear-gradient(160deg,rgba(232,200,170,.18),rgba(148,178,255,.06));border:1px solid rgba(232,200,170,.2);display:grid;place-items:end start;padding:5px;font:500 9px var(--mono);color:#e8c8aa}
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;height:100%}
+.kanban div{background:rgba(148,178,255,.05);border-radius:6px;padding:5px;display:grid;gap:4px;align-content:start}
+.kanban div > span{font:500 8.5px var(--mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kanban i{height:14px;border-radius:4px;background:rgba(91,140,255,.22)}
+.kanban div:last-child i{background:rgba(52,245,164,.28)}
+
+/* why */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why{padding:30px;display:grid;gap:14px;align-content:start;transition:border-color .3s,transform .3s}
+.why:hover{border-color:rgba(52,245,164,.35);transform:translateY(-3px)}
+.why .k{font-family:var(--mono);font-size:12px;color:var(--green)}
+.why p{color:var(--muted);margin:0;font-size:15px}
+.langs{display:flex;gap:6px;flex-wrap:wrap}
+.langs span{font-size:12.5px;padding:4px 10px;border-radius:99px;border:1px solid rgba(52,245,164,.3);color:var(--green)}
+
+/* onboarding */
+.onb{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.onb-copy{display:grid;gap:22px;min-width:0}
+.flow{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+.flow li{counter-increment:s;display:grid;grid-template-columns:40px 1fr;gap:16px;padding-bottom:22px;position:relative}
+.flow li:not(:last-child)::after{content:"";position:absolute;left:19px;top:40px;bottom:0;width:1px;background:linear-gradient(var(--cyan),transparent)}
+.flow li::before{content:counter(s);width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font:600 14px var(--mono);color:var(--cyan);background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.3)}
+.flow b{display:block;font-family:var(--display);font-size:16px;margin-top:8px}
+.flow span{color:var(--muted);font-size:14.5px}
+.call{padding:16px;display:grid;gap:12px;min-width:0}
+.call-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.rec{display:inline-flex;align-items:center;gap:6px;color:#ff7a8a}
+.rec::before{content:"";width:8px;height:8px;border-radius:50%;background:#ff5a6e;animation:ping 2s infinite}
+.screen{aspect-ratio:16/10;max-width:100%;border-radius:12px;background:var(--bg);border:1px solid var(--line);position:relative;overflow:hidden;display:grid;grid-template-columns:52px 1fr}
+.screen aside{border-right:1px solid var(--line);display:grid;gap:8px;padding:10px;align-content:start}
+.screen aside i{height:26px;border-radius:7px;background:rgba(148,178,255,.08)}
+.screen aside i.on{background:rgba(34,211,238,.25);border:1px solid rgba(34,211,238,.5)}
+.screen main{padding:14px;display:grid;gap:10px;align-content:start}
+.cursor{position:absolute;width:22px;height:22px;left:62%;top:58%;animation:cur 6s ease-in-out infinite}
+.cursor svg{width:100%;height:100%;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.ring{position:absolute;left:61%;top:56%;width:34px;height:34px;border-radius:50%;border:2px solid var(--green);opacity:0;animation:click 6s ease-in-out infinite}
+@keyframes cur{0%,100%{left:30%;top:30%}40%{left:62%;top:58%}60%{left:62%;top:58%}80%{left:22%;top:72%}}
+@keyframes click{40%{opacity:0;transform:scale(.4)}46%{opacity:1;transform:scale(1)}56%{opacity:0;transform:scale(1.4)}}
+.faces{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.face{border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;background:rgba(148,178,255,.05);border:1px solid var(--line);font-size:13px;min-width:0}
+.face .av{width:32px;height:32px;border-radius:50%;flex:none;display:grid;place-items:center;font:700 12px var(--display);color:var(--on-accent);background:linear-gradient(135deg,var(--cyan),var(--blue))}
+.face:last-child .av{background:linear-gradient(135deg,#e8c8aa,#c8a0ff)}
+.face small{display:block;color:var(--muted);font-size:11.5px}
+.face.speak{border-color:rgba(52,245,164,.5);box-shadow:0 0 0 3px rgba(52,245,164,.08)}
+.caption{font-family:var(--mono);font-size:12px;color:var(--muted);padding:10px 12px;border-radius:10px;background:rgba(5,8,15,.5);border:1px solid var(--line)}
+.caption em{font-style:normal;color:var(--green)}
+
+/* contact */
+.cta-band{padding:clamp(32px,5vw,56px);display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.cta-band::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:var(--cyan);filter:blur(120px);opacity:.14;right:-120px;top:-160px;pointer-events:none}
+.cta-copy{display:grid;gap:18px;position:relative;min-width:0}
+.contacts{display:grid;gap:12px;position:relative;min-width:0}
+.contact{display:flex;align-items:center;gap:14px;padding:16px;border-radius:14px;background:rgba(5,8,15,.45);border:1px solid var(--line);transition:border-color .25s,background .25s;min-width:0}
+.contact:hover{border-color:rgba(34,211,238,.4);background:rgba(34,211,238,.05)}
+.contact .ico{width:40px;height:40px}
+.contact-text{flex:1;min-width:0}
+.contact-text small{display:block;color:var(--muted);font-size:12px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.contact-text b{display:block;font-weight:600;font-size:15px;overflow-wrap:anywhere;user-select:all}
+.mini{flex:none;font:500 12px var(--mono);padding:8px 11px;border-radius:9px;border:1px solid var(--line);background:var(--glass);color:var(--fg);cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s}
+.mini:hover{border-color:var(--cyan);color:var(--cyan)}
+
+footer{position:relative;z-index:1;border-top:1px solid var(--line);padding-block:32px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:18px;color:var(--muted);font-size:14px}
+.foot ul{display:flex;flex-wrap:wrap;gap:22px;list-style:none;margin:0;padding:0}
+.foot a{text-decoration:none;color:var(--muted)}
+.foot a:hover{color:var(--cyan)}
+
+/* modal */
+.modal[hidden]{display:none!important}
+html.modal-open,html.modal-open body{overflow:hidden}
+.cal-frame{position:relative;border-radius:14px;border:1px solid var(--line);background:rgba(5,8,15,.5);overflow:hidden;min-height:120px}
+.cal-frame.embed{height:min(620px,62vh)}
+.cal-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg-2)}
+.cal-frame.embed .cal-fallback{position:absolute;inset:0}
+.cal-frame.loaded .cal-fallback{display:none}
+.cal-fallback{display:grid;place-items:center;align-content:center;gap:8px;padding:22px;text-align:center}
+.cal-fallback b{font-family:var(--display);font-size:16px}
+.cal-fallback span:last-child{font:12.5px var(--mono);color:var(--muted);overflow-wrap:anywhere}
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px max(16px,env(safe-area-inset-right,0px)) 20px max(16px,env(safe-area-inset-left,0px));background:rgba(5,8,15,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.modal-card{width:min(560px,100%);max-height:calc(100dvh - 40px);overflow-y:auto;padding:28px;display:grid;gap:18px;background:var(--bg-2);animation:pop .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{transform:translateY(12px) scale(.98);opacity:.4}}
+.modal-head{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.x{background:var(--glass);border:1px solid var(--line);color:var(--fg);width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:22px;line-height:1;flex:none;transition:border-color .2s,color .2s,transform .2s}
+.x:hover{border-color:var(--cyan);color:var(--cyan);transform:rotate(90deg)}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.slot{font:500 13px var(--mono);padding:11px 6px;border-radius:10px;border:1px solid var(--line);background:var(--glass);color:var(--fg);cursor:pointer;transition:all .2s}
+.slot:hover,.slot[aria-pressed="true"]{border-color:var(--cyan);color:var(--cyan);background:rgba(34,211,238,.08)}
+.modal small{color:var(--muted);font-size:13px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:120;padding:12px 18px;border-radius:12px;background:var(--bg-2);border:1px solid rgba(52,245,164,.4);color:var(--fg);font-size:14px;box-shadow:0 20px 40px -20px #000}
+
+/* reveal: visible at rest, small lift when JS enhances */
+.reveal{transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s}
+.js .reveal.pre{transform:translateY(22px);opacity:.35}
+
+@media (max-width:980px){
+  .hero-grid,.onb,.cta-band{grid-template-columns:1fr}
+  .proj-grid,.why-grid{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+@media (max-width:720px){
+  .skills-grid,.proj-grid,.why-grid{grid-template-columns:1fr}
+  .skill-list{grid-template-columns:1fr}
+  .stage{grid-template-columns:92px 1fr 36px}
+  .faces{grid-template-columns:1fr}
+  .nav .btn{display:none}
+  .slots{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .js .reveal.pre{transform:none;opacity:1}
+}
+</style>
+
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+<div class="grid-bg" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="brand-mark">MI</span>Muhammad Ibrahim</a>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#why">Why Me</a></li>
+      <li><a href="#onboarding">Onboarding</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="btn btn-primary btn-sm" data-book type="button">Book a Call</button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="status"><span class="dot"></span>Available for agency projects · Lahore, PK · US &amp; UK hours</span>
+          <h1>Elevating <span class="grad">GoHighLevel</span> Beyond Native Limits with Custom Engineering.</h1>
+          <p class="lead">1.5+ Years GHL Specialist &amp; Frontend Developer. Building high-ticket funnels, automated workflows, and bespoke UI/UX.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#projects">View Selected Projects
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </a>
+            <button class="btn btn-ghost" data-book type="button">Book a Live Demo Call
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+            </button>
+          </div>
+          <ul class="pills" aria-label="Core specialties">
+            <li class="pill">GHL Workflows</li>
+            <li class="pill">Custom CSS/JS Injection</li>
+            <li class="pill">Pipeline Automation</li>
+            <li class="pill">Responsive Funnels</li>
+            <li class="pill hot">Aesthetic Clinic Specialist</li>
+          </ul>
+        </div>
+
+        <div class="glass board" aria-label="Example GoHighLevel pipeline">
+          <div class="board-top">
+            <span class="board-title">Opportunities › <b>High-Ticket Consult Pipeline</b></span>
+            <span class="win-dots"><i></i><i></i><i></i></span>
+          </div>
+          <div class="stage"><span class="stage-name">New Lead</span><span class="bar"><i style="--w:100%"></i></span><span class="stage-n">142</span></div>
+          <div class="stage"><span class="stage-name">Contacted</span><span class="bar"><i style="--w:78%"></i></span><span class="stage-n">111</span></div>
+          <div class="stage"><span class="stage-name">Booked Consult</span><span class="bar"><i style="--w:52%"></i></span><span class="stage-n">74</span></div>
+          <div class="stage"><span class="stage-name">Showed</span><span class="bar"><i style="--w:39%"></i></span><span class="stage-n">55</span></div>
+          <div class="stage"><span class="stage-name">Closed Won</span><span class="bar"><i style="--w:24%"></i></span><span class="stage-n">34</span></div>
+          <div class="board-log" aria-live="off">
+            <div class="log-row"><span>09:41</span><span>Trigger <span class="c">Form Submitted</span> → tag <em>consult-lead</em></span></div>
+            <div class="log-row"><span>09:41</span><span>Missed call → <em>text-back sent</em></span></div>
+            <div class="log-row"><span>09:43</span><span>Calendar booked → move to <span class="c">Booked Consult</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats reveal">
+        <div class="stat"><b class="grad">1.5+ yrs</b><span>Hands-on GoHighLevel builds</span></div>
+        <div class="stat"><b>24–48h</b><span>Typical turnaround on builds</span></div>
+        <div class="stat"><b>3 languages</b><span>English, Urdu, Punjabi onboarding</span></div>
+        <div class="stat"><b>US / UK</b><span>Overlapping working hours</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Skill Matrix</span>
+        <h2>Native GHL depth, plus the code to go past it.</h2>
+        <p>Most builders stop where the drag-and-drop editor stops. I work on both sides of that line.</p>
+      </div>
+      <div class="skills-grid">
+        <article class="glass skill-card reveal">
+          <div class="skill-head">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.5 6h9M6.5 8l4.3 8M17.5 8l-4.3 8"/></svg></span>
+            <div><h3>GoHighLevel Expertise</h3><small>CRM, automation &amp; funnel architecture</small></div>
+          </div>
+          <ul class="skill-list">
+            <li>Custom Funnel Building</li>
+            <li>Multi-Stage Pipelines</li>
+            <li>Workflow Automations</li>
+            <li>Calendars &amp; Booking</li>
+            <li>Missed-Call Text-Back</li>
+            <li>Client Onboarding</li>
+            <li>QA Testing</li>
+          </ul>
+        </article>
+        <article class="glass skill-card fe reveal">
+          <div class="skill-head">
+            <span class="ico g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span>
+            <div><h3>Frontend Engineering</h3><small>When native tools hit a wall</small></div>
+          </div>
+          <ul class="skill-list">
+            <li>Custom CSS/JS for GHL</li>
+            <li>HTML5</li>
+            <li>React</li>
+            <li>Tailwind CSS</li>
+            <li>Webhook &amp; API Integrations</li>
+            <li>Mobile-First Responsive</li>
+          </ul>
+<div class="code" aria-label="Example custom CSS injected into a GHL funnel"><span class="cm">/* Funnel Settings › Custom CSS */</span>
+<span class="p">.c-section</span>.hero-glass {
+  <span class="k">backdrop-filter</span>: <span class="s">blur(16px)</span>;
+  <span class="k">border-radius</span>: <span class="s">20px</span>;
+}
+<span class="p">@media</span> (max-width: <span class="s">480px</span>) { <span class="p">.c-row</span> { <span class="k">gap</span>: <span class="s">12px</span> } }</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Selected Projects</span>
+        <h2>Builds that convert, automate, and onboard.</h2>
+        <p>A cross-section of funnel, design, and CRM work for coaches, clinics, and financial professionals.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="glass proj reveal">
+          <div class="proj-visual" aria-hidden="true">
+            <div class="mock">
+              <div class="mock-bar"><i></i><i></i><i></i><u></u></div>
+              <div class="mock-body">
+                <div class="ln h"></div><div class="ln" style="width:85%"></div><div class="ln" style="width:60%"></div>
+                <div class="steps7"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b></div>
+                <div class="ln acc"></div>
+              </div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <span class="proj-kind">GHL &amp; Custom Web Redesign</span>
+            <h3>7 Steps to Sales Mastery</h3>
+            <p>High-converting sales mastery funnel with custom layout fixes, sitemap optimization, and Google Search Console integration.</p>
+            <div class="tags"><span class="tag">GHL Native Builder</span><span class="tag">Custom CSS/JS</span><span class="tag">SEO Setup</span></div>
+          </div>
+          <div class="proj-foot">
+            <a href="https://paulbroome-salescoach.co.uk/" target="_blank" rel="noopener">View live site
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+            </a>
+            <span class="note">Live</span>
+          </div>
+        </article>
+
+        <article class="glass proj reveal">
+          <div class="proj-visual" aria-hidden="true">
+            <div class="mock">
+              <div class="mock-bar"><i></i><i></i><i></i><u></u></div>
+              <div class="mock-body">
+                <div class="ln h" style="width:55%;background:rgba(232,200,170,.55)"></div><div class="ln" style="width:75%"></div>
+                <div class="pages6"><b>Home</b><b>Services</b><b>Assess</b><b>Results</b><b>About</b><b>Book</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <span class="proj-kind">Luxury Clinic Funnel</span>
+            <h3>Aesthetic Clinic 6-Page Conversion Funnel</h3>
+            <p>High-end, luxury aesthetic clinic funnel featuring service overview, assessment booking layout, and appointment booking flow.</p>
+            <div class="tags"><span class="tag">Custom GHL Design</span><span class="tag">Mobile-First UX</span><span class="tag">Form/Calendar Ready</span></div>
+          </div>
+          <div class="proj-foot">
+            <button class="mini" data-book type="button">Request a walkthrough</button>
+            <span class="note">Private build</span>
+          </div>
+        </article>
+
+        <article class="glass proj reveal">
+          <div class="proj-visual" aria-hidden="true">
+            <div class="mock">
+              <div class="mock-bar"><i></i><i></i><i></i><u></u></div>
+              <div class="mock-body" style="height:100%">
+                <div class="kanban">
+                  <div><span>Lead</span><i></i><i></i><i></i><i></i></div>
+                  <div><span>Fact-Find</span><i></i><i></i><i></i></div>
+                  <div><span>Proposal</span><i></i><i></i></div>
+                  <div><span>Onboarded</span><i></i><i></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <span class="proj-kind">CRM Architecture</span>
+            <h3>Financial &amp; Insurance CRM Onboarding Engine</h3>
+            <p>Multi-stage pipeline architecture with automated drip sequences and 1-on-1 screen-share onboarding setup for non-technical clients.</p>
+            <div class="tags"><span class="tag">GHL Workflows</span><span class="tag">SMS/Email Automation</span><span class="tag">Onboarding Architecture</span></div>
+          </div>
+          <div class="proj-foot">
+            <button class="mini" data-book type="button">Request a walkthrough</button>
+            <span class="note">Private build</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ME -->
+  <section id="why">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Why Agencies Hire Me</span>
+        <h2>The builder you hand the hard accounts to.</h2>
+      </div>
+      <div class="why-grid">
+        <article class="glass why reveal">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></span>
+          <span class="k">// custom code</span>
+          <h3>Not Just a Drag-and-Drop Builder</h3>
+          <p>When native GHL tools hit a wall, I write custom CSS and JavaScript to get the layout, behaviour, or integration the client actually asked for.</p>
+        </article>
+        <article class="glass why reveal">
+          <span class="ico g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          <span class="k">// live training</span>
+          <h3>Live Client Onboarding</h3>
+          <p>I run 1-on-1 training calls so your clients actually use what you sold them.</p>
+          <div class="langs"><span>English</span><span>Urdu</span><span>Punjabi</span></div>
+        </article>
+        <article class="glass why reveal">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>
+          <span class="k">// 24–48h</span>
+          <h3>Speed &amp; Precision</h3>
+          <p>Clean builds with fast 24–48 hour turnarounds. Every form, trigger, and calendar is tested before handover.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ONBOARDING -->
+  <section id="onboarding">
+    <div class="wrap onb">
+      <div class="onb-copy reveal">
+        <span class="eyebrow">Live Onboarding</span>
+        <h2>Your client shares their screen. I walk them through every click.</h2>
+        <p class="lead">Non-technical clients don't read Loom libraries. On a live call I guide them step by step through their own GHL account until they can run it without you.</p>
+        <ol class="flow">
+          <li><div><b>Account walkthrough</b><span>Dashboard, Conversations, and where leads land.</span></div></li>
+          <li><div><b>Pipeline &amp; calendar practice</b><span>They move a real opportunity and book a test appointment themselves.</span></div></li>
+          <li><div><b>Automations explained</b><span>What fires, when, and what they should never switch off.</span></div></li>
+          <li><div><b>Handover checklist</b><span>Logins, mobile app setup, and a short recap sent after the call.</span></div></li>
+        </ol>
+      </div>
+
+      <div class="glass call reveal" aria-label="Illustration of a screen-share onboarding call">
+        <div class="call-top"><span>Onboarding call · Screen share</span><span class="rec">REC 18:42</span></div>
+        <div class="screen" aria-hidden="true">
+          <aside><i></i><i class="on"></i><i></i><i></i><i></i></aside>
+          <main>
+            <div class="ln h" style="width:45%"></div>
+            <div class="kanban" style="height:110px">
+              <div><span>New</span><i></i><i></i></div>
+              <div><span>Booked</span><i></i></div>
+              <div><span>Showed</span><i></i></div>
+              <div><span>Won</span><i></i></div>
+            </div>
+          </main>
+          <span class="ring"></span>
+          <span class="cursor"><svg viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#e7ecf6" stroke="#0b0f19" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="faces">
+          <div class="face speak"><span class="av">MI</span><div>Muhammad<small>Guiding</small></div></div>
+          <div class="face"><span class="av">CL</span><div>Clinic owner<small>Sharing screen</small></div></div>
+        </div>
+        <div class="caption"><em>Ibrahim:</em> Now drag that lead into "Booked" — see how the confirmation SMS fires?</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="glass cta-band reveal">
+        <div class="cta-copy">
+          <span class="eyebrow">Let's Build</span>
+          <h2>Have a GHL build that native tools can't handle?</h2>
+          <p class="lead">Send the brief or book a live demo call. I reply within one business day, US and UK hours included.</p>
+          <div class="cta-row"><button class="btn btn-primary" data-book type="button">Book a Live Demo Call</button></div>
+        </div>
+        <div class="contacts">
+          <div class="contact">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <div class="contact-text"><small>Email</small><b id="email-val">ibrahimshk6s1@gmail.com</b></div>
+            <button class="mini" data-copy="email-val" type="button">Copy</button>
+          </div>
+          <div class="contact">
+            <span class="ico g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+            <div class="contact-text"><small>Phone / WhatsApp</small><b id="phone-val">+92 311 7187653</b></div>
+            <button class="mini" data-copy="phone-val" type="button">Copy</button>
+          </div>
+          <div class="contact">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>
+            <div class="contact-text"><small>Upwork</small><b>Hire me on Upwork</b></div>
+            <a class="mini" id="upwork-link" href="https://www.upwork.com/freelancers/~01cc84cd3058a5ce04?mp_source=share" target="_blank" rel="noopener">View profile</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="yr">2026</span> Muhammad Ibrahim · GoHighLevel Developer &amp; Custom Web Engineer</span>
+    <ul>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#why">Why Me</a></li>
+      <li><a href="#onboarding">Onboarding</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- Booking modal -->
+<div class="modal" id="book-modal" role="dialog" aria-modal="true" aria-labelledby="book-title" hidden>
+  <div class="glass modal-card">
+    <div class="modal-head">
+      <div>
+        <span class="eyebrow">30-min call</span>
+        <h3 id="book-title" style="margin-top:8px">Book a Live Demo Call</h3>
+      </div>
+      <button class="x" id="book-close" data-close type="button" aria-label="Close booking popup">×</button>
+    </div>
+    <p style="margin:0;color:var(--muted);font-size:15px">Pick a time that suits you. We'll walk through your GHL account and what you want built. Calendly shows slots in your own time zone.</p>
+    <div class="cal-frame" id="cal-frame">
+      <div class="cal-fallback" id="cal-fallback">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span>
+        <b>30 Minute Meeting · Calendly</b>
+        <span>calendly.com/ibrahimshk6s1/30min</span>
+      </div>
+    </div>
+    <a class="btn btn-primary" id="book-go" href="https://calendly.com/ibrahimshk6s1/30min" target="_blank" rel="noopener" style="justify-content:center">Open booking calendar</a>
+    <small id="book-note">Opens Calendly in a new tab.</small>
+  </div>
+</div>
+
+<script>
+/* ===== CONFIG: replace with your real links ===== */
+const CONFIG = {
+  bookingUrl: "https://calendly.com/ibrahimshk6s1/30min", // Calendly booking link
+  upworkUrl: "https://www.upwork.com/freelancers/~01cc84cd3058a5ce04?mp_source=share" // Upwork profile
+};
+
+document.documentElement.classList.add("js");
+document.getElementById("yr").textContent = new Date().getFullYear();
+document.getElementById("book-go").href = CONFIG.bookingUrl;
+document.getElementById("upwork-link").href = CONFIG.upworkUrl;
+
+/* Reveal on scroll (content stays visible without JS) */
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (!reduce && "IntersectionObserver" in window) {
+  const els = [...document.querySelectorAll(".reveal")];
+  els.forEach(el => { if (el.getBoundingClientRect().top > innerHeight) el.classList.add("pre"); });
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.remove("pre"); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  els.forEach(el => io.observe(el));
+}
+
+/* Project card spotlight */
+document.querySelectorAll(".proj").forEach(card => {
+  card.addEventListener("pointermove", e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+    card.style.setProperty("--my", (e.clientY - r.top) + "px");
+  });
+});
+
+/* Booking modal */
+const modal = document.getElementById("book-modal");
+const closeBtn = document.getElementById("book-close");
+const calFrame = document.getElementById("cal-frame");
+let lastFocus = null;
+let calLoaded = false;
+
+/* Embed Calendly inline when the page is hosted on your own domain / GHL.
+   (The Claude preview blocks embedded sites, so there it shows the button only.) */
+const canEmbed = !/claude|anthropic/i.test(location.hostname);
+function loadCalendly(){
+  if (calLoaded || !canEmbed) return;
+  const f = document.createElement("iframe");
+  f.src = CONFIG.bookingUrl + "?hide_gdpr_banner=1&background_color=0f1524&text_color=e7ecf6&primary_color=22d3ee";
+  f.title = "Book a 30 minute call with Muhammad Ibrahim";
+  f.loading = "lazy";
+  f.addEventListener("load", () => calFrame.classList.add("loaded"));
+  calFrame.appendChild(f);
+  calFrame.classList.add("embed");
+  document.getElementById("book-note").textContent = "Calendar not loading? Use the button to open it in a new tab.";
+  calLoaded = true;
+}
+
+function openModal(e){
+  if (e) e.preventDefault();
+  lastFocus = document.activeElement;
+  loadCalendly();
+  modal.hidden = false;
+  document.documentElement.classList.add("modal-open");
+  requestAnimationFrame(() => closeBtn.focus());
+}
+function closeModal(){
+  if (modal.hidden) return;
+  modal.hidden = true;
+  document.documentElement.classList.remove("modal-open");
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+
+/* Delegated so every current and future [data-book] button opens the popup */
+document.addEventListener("click", e => {
+  if (e.target.closest("[data-book]")) openModal(e);
+  else if (e.target.closest("[data-close]")) closeModal();
+  else if (e.target === modal) closeModal();
+});
+document.addEventListener("keydown", e => {
+  if (modal.hidden) return;
+  if (e.key === "Escape") { e.preventDefault(); closeModal(); }
+  if (e.key === "Tab") { /* keep focus inside the popup */
+    const f = [...modal.querySelectorAll("button, a[href], iframe")].filter(el => el.offsetParent !== null);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
+
+/* Copy buttons */
+function toast(msg){
+  const t = document.createElement("div"); t.className = "toast"; t.textContent = msg;
+  document.body.appendChild(t); setTimeout(() => t.remove(), 1800);
+}
+document.querySelectorAll("[data-copy]").forEach(btn => btn.addEventListener("click", () => {
+  const el = document.getElementById(btn.dataset.copy);
+  const text = el.textContent.trim();
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selected — press Ctrl/Cmd+C to copy"); };
+  if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => toast("Copied " + text)).catch(fallback);
+  else fallback();
+}));
+</script>
